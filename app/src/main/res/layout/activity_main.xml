@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <com.example.calendarapp_2.CustomCalendarView
+        android:id="@+id/custom_calendar_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/custom_calendar_view"></com.example.calendarapp_2.CustomCalendarView>
+        android:layout_height="match_parent"></com.example.calendarapp_2.CustomCalendarView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

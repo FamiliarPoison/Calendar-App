@@ -1,0 +1,14 @@
+
+
+java:S1319!"tThe type of the "arrayList" object should be an interface such as "List" rather than the implementation "ArrayList".(Γ
+l	java:S117Έ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ώΊύρϊÿÿÿÿ
+e	java:S116q"PRename this field "Event" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Φαν…
+9
+java:S1659q"#Declare "Event" on a separate line.(Φαν…
+d	java:S100‰"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”³­•
+g	java:S116q"RRename this field "DateTxt" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Φαν…
+l	java:S117®"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’ίÿϊÿÿÿÿ
+8
+java:S1659q""Declare "Time" on a separate line.(Φαν…
+d	java:S116q"ORename this field "Time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Φαν…
+c	java:S100~"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(””„

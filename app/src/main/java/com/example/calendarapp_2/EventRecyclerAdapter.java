@@ -47,6 +47,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final Events events = arrayList.get(position);
         holder.Event.setText(events.getEVENT());
+        holder.Description.setText(events.getDESCRIPTION());
         holder.DateTxt.setText(events.getDATE());
         holder.Time.setText(events.getTIME());
         holder.delete.setOnClickListener(new View.OnClickListener() {
@@ -110,13 +111,14 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView DateTxt,Event,Time;
+        TextView DateTxt,Event, Description, Time;
         Button delete;
         ImageButton setAlarm;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             DateTxt = itemView.findViewById(R.id.eventdate);
                     Event = itemView.findViewById(R.id.eventname);
+                    Description = itemView.findViewById(R.id.event_description);
                     Time = itemView.findViewById(R.id.eventime);
                     delete = itemView.findViewById(R.id.delete);
                     setAlarm = itemView.findViewById(R.id.alarmmeBtn);

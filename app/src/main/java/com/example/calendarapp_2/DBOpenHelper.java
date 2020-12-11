@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 public class DBOpenHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_EVENTS_TABLE = "create table "+DBStructure.EVENT_TABLE_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-            +DBStructure.EVENT+" TEXT,"+DBStructure.TIME+" TEXT, "+DBStructure.DATE+" TEXT, "+DBStructure.MONTH+" TEXT, "
+            +DBStructure.EVENT+" TEXT,"+DBStructure.DESCRIPTION+" TEXT,"+DBStructure.TIME+" TEXT, "+DBStructure.DATE+" TEXT, "+DBStructure.MONTH+" TEXT, "
             +DBStructure.YEAR+" TEXT, " +DBStructure.Notify+" TEXT)";
     private static final String DROP_EVENTS_TABLE= "DROP TABLE IF EXISTS "+DBStructure.EVENT_TABLE_NAME;
 
@@ -33,9 +33,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void SaveEvent(String event,String time,String date,String month,String year,String notify,SQLiteDatabase database){
+    public void SaveEvent(String event, String description, String time,String date,String month,String year,String notify,SQLiteDatabase database){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBStructure.EVENT,event);
+        contentValues.put(DBStructure.DESCRIPTION, description);
         contentValues.put(DBStructure.TIME,time);
         contentValues.put(DBStructure.DATE,date);
         contentValues.put(DBStructure.MONTH,month);
@@ -46,7 +47,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     }
     public Cursor ReadEvents(String date,SQLiteDatabase database){
-        String [] Projections = {DBStructure.EVENT,DBStructure.TIME,DBStructure.DATE,DBStructure.MONTH,DBStructure.YEAR};
+        String [] Projections = {DBStructure.EVENT,DBStructure.DESCRIPTION,DBStructure.TIME,DBStructure.DATE,DBStructure.MONTH,DBStructure.YEAR};
         String Selection = DBStructure.DATE +"=?";
         String [] SelectionArgs = {date};
 
@@ -62,7 +63,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     }
     public Cursor ReadEventsperMonth(String month,String year,SQLiteDatabase database){
-        String [] Projections = {DBStructure.EVENT,DBStructure.TIME,DBStructure.DATE,DBStructure.MONTH,DBStructure.YEAR};
+        String [] Projections = {DBStructure.EVENT,DBStructure.DESCRIPTION,DBStructure.TIME,DBStructure.DATE,DBStructure.MONTH,DBStructure.YEAR};
         String Selection = DBStructure.MONTH +"=? and "+DBStructure.YEAR+"=?";
         String [] SelectionArgs = {month,year};
 

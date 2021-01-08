@@ -59,7 +59,7 @@ public class CustomCalendarView extends LinearLayout {
     int alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinuit;
 
     DBOpenHelper dbOpenHelper;
-
+    MainActivity mMainActivity;
 
     public CustomCalendarView(Context context) {
         super(context);
@@ -184,6 +184,7 @@ public class CustomCalendarView extends LinearLayout {
                 EventRecyclerAdapter eventRecyclerAdapter = new EventRecyclerAdapter(showView.getContext(), CollectEventByDate(date));
                 recyclerView.setAdapter(eventRecyclerAdapter);
                 eventRecyclerAdapter.notifyDataSetChanged();
+                eventRecyclerAdapter.mainActivity = mMainActivity;
                 builder.setView(showView);
                 alertDialog = builder.create();
                 alertDialog.show();

@@ -70,13 +70,17 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
+                    android:layout_marginRight="15dp"
                     android:background="@color/colorPrimaryDark"
                     android:src="@drawable/ic_action_notification_off" />
 
-                <CheckBox
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_margin="10dp" />/
+                <ImageButton
+                    android:id="@+id/progressBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@color/colorPrimaryDark"
+                    android:src="@drawable/ic_action_progress_off" />
 
             </LinearLayout>
 

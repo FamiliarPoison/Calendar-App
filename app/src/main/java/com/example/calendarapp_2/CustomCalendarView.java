@@ -119,6 +119,7 @@ public class CustomCalendarView extends LinearLayout {
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 Calendar c = Calendar.getInstance();
                                 c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                c.set(Calendar.MINUTE,minute);
                                 c.setTimeZone(TimeZone.getDefault());
                                 SimpleDateFormat hformate = new SimpleDateFormat("K:mm a", Locale.ENGLISH);
                                 String event_Time = hformate.format(c.getTime());
@@ -145,7 +146,7 @@ public class CustomCalendarView extends LinearLayout {
                     public void onClick(View v) {
 
                         if (alarmMe.isChecked()) {
-                            SaveEvent(EventName.getText().toString(), EventsDescription.getText().toString(), EventsTime.getText().toString(), date, month, year, "on");
+                            SaveEvent(EventName.getText().toString(), EventsDescription.getText().toString(), EventsTime.getText().toString(), date, month, year,"off", "on");
                             SetUpCalendar();
                             Calendar calendar = Calendar.getInstance();
                             calendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinuit);
@@ -153,7 +154,7 @@ public class CustomCalendarView extends LinearLayout {
                                     EventName.getText().toString(), EventsTime.getText().toString()));
                             alertDialog.dismiss();
                         } else {
-                            SaveEvent(EventName.getText().toString(), EventsDescription.getText().toString(), EventsTime.getText().toString(), date, month, year, "off");
+                            SaveEvent(EventName.getText().toString(), EventsDescription.getText().toString(), EventsTime.getText().toString(), date, month, year, "off","off");
                             SetUpCalendar();
                             alertDialog.dismiss();
 
@@ -173,7 +174,6 @@ public class CustomCalendarView extends LinearLayout {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String date = eventDateFormate.format(dates.get(position));
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setCancelable(true);
                 View showView = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_events_layout, null);
@@ -224,6 +224,8 @@ public class CustomCalendarView extends LinearLayout {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, RequestCOde, intent, PendingIntent.FLAG_ONE_SHOT);
         AlarmManager alarmManager = (AlarmManager) context.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+
     }
 
     private ArrayList<Events> CollectEventByDate(String date) {
@@ -253,11 +255,11 @@ public class CustomCalendarView extends LinearLayout {
 
     }
 
-    private void SaveEvent(String event, String description, String time, String date, String month, String year, String notify) {
+    private void SaveEvent(String event, String description, String time, String date, String month, String year,String progress,String notify) {
 
         dbOpenHelper = new DBOpenHelper(context);
         SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
-        dbOpenHelper.SaveEvent(event, description, time, date, month, year, notify, database);
+        dbOpenHelper.SaveEvent(event, description, time, date, month, year, progress,notify, database);
         dbOpenHelper.close();
         Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
 

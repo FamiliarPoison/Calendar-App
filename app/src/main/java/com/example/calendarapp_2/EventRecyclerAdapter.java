@@ -62,10 +62,13 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         if (isAarmed(events.getDATE(),events.getEVENT(),events.getTIME())){
             holder.setAlarm.setImageResource(R.drawable.ic_action_notification_on);
-
         }else {
             holder.setAlarm.setImageResource(R.drawable.ic_action_notification_off);
-
+        }
+        if (isAarmed_2(events.getDATE(),events.getEVENT(),events.getTIME())){
+            holder.setProgress.setImageResource(R.drawable.ic_action_progress_on);
+        }else {
+            holder.setProgress.setImageResource(R.drawable.ic_action_progress_off);
         }
         Calendar datecalendar = Calendar.getInstance();
         datecalendar.setTime(ConvertStringToDate(events.getDATE()));
@@ -101,6 +104,26 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                 }
             }
         });
+        holder.setProgress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isAarmed_2(events.getDATE(),events.getEVENT(),events.getTIME())){
+                    holder.setProgress.setImageResource(R.drawable.ic_action_progress_off);
+                    updateEvent_2(events.getDATE(),events.getEVENT(),events.getTIME(),"off");
+                    notifyDataSetChanged();
+
+                }
+                else {
+                    holder.setProgress.setImageResource(R.drawable.ic_action_progress_on);
+                    updateEvent_2(events.getDATE(),events.getEVENT(),events.getTIME(),"on");
+                    notifyDataSetChanged();
+
+                }
+
+
+
+            }
+        });
 
     }
 
@@ -114,6 +137,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         TextView DateTxt,Event, Description, Time;
         Button delete;
         ImageButton setAlarm;
+        ImageButton setProgress;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             DateTxt = itemView.findViewById(R.id.eventdate);
@@ -122,6 +146,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                     Time = itemView.findViewById(R.id.eventime);
                     delete = itemView.findViewById(R.id.delete);
                     setAlarm = itemView.findViewById(R.id.alarmmeBtn);
+                    setProgress = itemView.findViewById(R.id.progressBtn);
         }
     }
 
@@ -172,6 +197,23 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         dbOpenHelper.close();
         return alarmed;
     }
+    private boolean isAarmed_2(String date,String event,String time){
+        boolean alarmed_2 = false;
+        dbOpenHelper = new DBOpenHelper(context);
+        SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
+        Cursor cursor = dbOpenHelper.ReadIDEvents_2(date,event,time,database);
+        while (cursor.moveToNext()) {
+            String progress = cursor.getString(cursor.getColumnIndex(DBStructure.Progress));
+            if (progress.equals("on")){
+                alarmed_2 = true;
+            }else{
+                alarmed_2 = false;
+            }
+        }
+        cursor.close();
+        dbOpenHelper.close();
+        return alarmed_2;
+    }
 
     private void setAlarm(Calendar calendar,String event,String time,int RequestCOde){
         Intent intent = new Intent(context.getApplicationContext(),AlarmReceiver.class);
@@ -209,7 +251,12 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
         dbOpenHelper.updateEvent(date,event,time,notify,database);
         dbOpenHelper.close();
-
+    }
+    private void updateEvent_2(String date,String event,String time,String progress){
+        dbOpenHelper = new DBOpenHelper(context);
+        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
+        dbOpenHelper.updateEvent_2(date,event,time,progress,database);
+        dbOpenHelper.close();
     }
 
 

@@ -130,8 +130,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, chanelLabel)
                             .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                            .setContentTitle("Notification!") // title for notification
-                            .setContentText("Hello word") // message for notification
+                            .setContentTitle(events.getEVENT()) // title for notification
+                            .setContentText(events.getDESCRIPTION()) // message for notification
                             .setPriority(NotificationCompat.PRIORITY_HIGH)
                             .setAutoCancel(true); // clear notification after click
 

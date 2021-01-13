@@ -23,66 +23,39 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
+
+    CustomCalendarView customCalendarView;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    CustomCalendarView customCalendarView;
-    CustomCalendarView_2 customCalendarView_2;
-    Button signIn;
-    EditText Email,Password;
+    boolean isAdmin = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-        Email = findViewById(R.id.email);
-        Password = findViewById(R.id.password);
+        setContentView(R.layout.activity_main);
+        customCalendarView = findViewById(R.id.custom_calendar_view);
+
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
+        Intent intent = getIntent();
+        String uid = intent.getStringExtra("uid");
 
-        signIn = findViewById(R.id.login_button);
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fAuth.signInWithEmailAndPassword(Email.getText().toString(),Password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-
-                        //checkUserAccessLevel(authResult.getUser().getUid());
-                        setContentView(R.layout.activity_main);
-                        customCalendarView = findViewById(R.id.custom_calendar_view);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-            }
-        });
-
-
-    }
-    /*private void checkUserAccessLevel(String uid){
         DocumentReference df = fStore.collection("Users").document(uid);
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.d("TAG","onSuccess: " + documentSnapshot.getData());
-                if(documentSnapshot.getString("admin") != null){
-                    setContentView(R.layout.activity_main);
-                    customCalendarView = findViewById(R.id.custom_calendar_view);
-                }else{
-                    setContentView(R.layout.activity_main);
-                    customCalendarView_2 = findViewById(R.id.custom_calendar_view_2);
-                }
+                Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
+                isAdmin = documentSnapshot.getBoolean("admin");
+                Log.d("TAG", "onSuccess: " + isAdmin + "");
+                customCalendarView.isAdmin = isAdmin;
             }
         });
-    } */
+
+    }
 
 
 }

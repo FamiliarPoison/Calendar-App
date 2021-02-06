@@ -1,15 +1,19 @@
 package com.example.calendarapp_2;
 
 public class Events {
-    String EVENT, DESCRIPTION, TIME,DATE,MONTH,YEAR;
+    String EVENT, DESCRIPTION, TIME,DATE,MONTH,YEAR, ID, NOTIFY, PROGRESS;
 
-    public Events(String EVENT, String DESCRIPTION, String TIME, String DATE, String MONTH, String YEAR) {
+
+    public Events(String EVENT, String DESCRIPTION, String TIME, String DATE, String MONTH, String YEAR, String ID, String NOTIFY, String PROGRESS) {
         this.EVENT = EVENT;
         this.DESCRIPTION = DESCRIPTION;
         this.TIME = TIME;
         this.DATE = DATE;
         this.MONTH = MONTH;
         this.YEAR = YEAR;
+        this.ID = ID;
+        this.NOTIFY = NOTIFY;
+        this.PROGRESS = PROGRESS;
     }
 
 
@@ -59,5 +63,29 @@ public class Events {
 
     public void setDESCRIPTION(String DESCRIPTION) {
         this.DESCRIPTION = DESCRIPTION;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public String getNOTIFY() {
+        return NOTIFY;
+    }
+
+    public void setNOTIFY(String NOTIFY) {
+        this.NOTIFY = NOTIFY;
+    }
+
+    public String getPROGRESS() {
+        return PROGRESS;
+    }
+
+    public void setPROGRESS(String PROGRESS) {
+        this.PROGRESS = PROGRESS;
     }
 }

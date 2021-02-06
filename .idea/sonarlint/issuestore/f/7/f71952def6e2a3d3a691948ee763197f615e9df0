@@ -1,17 +1,22 @@
 
-X	java:S110"<This class has 9 parents which is greater than 5 authorized.(²Ú±8¥ª†°ï.
-Q
-java:S1128"4Remove this unused import 'android.content.Context'.(©Ê‰è8¥ª†°ï.
+U
+java:S1128"8Remove this unused import 'androidx.annotation.NonNull'.(ˆÛúÜ8òæ Ñï.
+X	java:S110"<This class has 9 parents which is greater than 5 authorized.(²Ú±8§Ğ‘€÷.
 U
 java:S1128"8Remove this unused import 'android.view.LayoutInflater'.(À¯ÑÇ8¥ª†°ï.
-O
-java:S1128"3Remove this unused import 'android.content.Intent'.(³ğ‹G8¥ª†°ï.
+Q
+java:S1128"4Remove this unused import 'android.content.Context'.(©Ê‰è8¥ª†°ï.
+Q
+java:S1128"4Remove this unused import 'android.widget.EditText'.(†Å›Ú8òæ Ñï.
+m
+java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnFailureListener'.(ï¿ŞŞúÿÿÿÿ8òæ Ñï.
+\
+java:S1128"@Remove this unused import 'com.google.firebase.auth.AuthResult'.(âÂ8òæ Ñï.
+T
+java:S1128"2Remove this unused import 'android.widget.Button'.(²òıÿÿÿÿ8òæ Ñï.
+S
+java:S1128"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8òæ Ñï.
 ^
 java:S1128"<Remove this unused import 'android.content.DialogInterface'.(Š­›¨şÿÿÿÿ8¥ª†°ï.
-C
-java:S1659 "&Declare "Password" on a separate line.(â„úÛ8¥ª†°ï.
-{	java:S116"_Rename this field "customCalendarView_2" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡¡²¿8¥ª†°ï.
-l	java:S116 "PRename this field "Email" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â„úÛ8¥ª†°ï.
-o	java:S116 "SRename this field "Password" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â„úÛ8¥ª†°ï.
-]	java:S1255"<This block of commented-out lines of code should be removed.(Ø•ı£ÿÿÿÿÿ8¥ª†°ï.
-]	java:S125F"<This block of commented-out lines of code should be removed.( ÅÎİùÿÿÿÿ8¥ª†°ï.
+P
+java:S1128".Remove this unused import 'android.view.View'.(Ø½­äşÿÿÿÿ8òæ Ñï.

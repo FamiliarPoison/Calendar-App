@@ -1,28 +1,29 @@
 
-k	java:S100³"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”Š”„8ÕîŒî.
-k	java:S100¾"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”³­•8ÕîŒî.
-p	java:S100ã"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©­ËÌøÿÿÿÿ8ÕîŒî.
-s	java:S117ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(şºıñúÿÿÿÿ8ÕîŒî.
-Q
-java:S1128"5Remove this unused import 'android.app.Notification'.(¸Ó†98¬ÃŒî.
-A
-java:S1659¢"#Declare "Event" on a separate line.(µóÍÙ8ÕîŒî.
-p	java:S100›"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ÛæÉûÿÿÿÿ8ÕîŒî.
-s	java:S117õ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ’ßÿúÿÿÿÿ8ÕîŒî.
-S
-java:S1128"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8õ˜¤î.
 G
-java:S1659¢")Declare "Description" on a separate line.(µóÍÙ8ÕîŒî.
+java:S1659ª")Declare "Description" on a separate line.(µóÍÙ8ÕîŒî.
+@
+java:S1659ª""Declare "Time" on a separate line.(µóÍÙ8ÕîŒî.
+m	java:S116ª"PRename this field "Event" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8ÕîŒî.
+^	java:S125æ"<This block of commented-out lines of code should be removed.(å™Äıÿÿÿÿ8³Íš÷.
 j
 java:S1128"HRemove this unused import 'androidx.core.app.NotificationManagerCompat'.(¥¤”úÿÿÿÿ8¬ÃŒî.
-Š
-java:S1319+"tThe type of the "arrayList" object should be an interface such as "List" rather than the implementation "ArrayList".(ÃŒš
-m	java:S116¢"PRename this field "Event" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8ÕîŒî.
-s	java:S117ä"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àäĞüÿÿÿÿ8ÕîŒî.
-@
-java:S1659¢""Declare "Time" on a separate line.(µóÍÙ8ÕîŒî.
-o	java:S116¢"RRename this field "DateTxt" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8ÕîŒî.
+p	java:S100á"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ÛæÉûÿÿÿÿ8ÕîŒî.
+s	java:S117¬"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ’ßÿúÿÿÿÿ8ÕîŒî.
+k	java:S100Æ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”³­•8ÕîŒî.
 \
 java:S1128":Remove this unused import 'android.media.RingtoneManager'.(íÛØÿÿÿÿÿ8Œğ Œî.
-s	java:S116¢"VRename this field "Description" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8ÕîŒî.
-l	java:S116¢"ORename this field "Time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8ÕîŒî.
+p	java:S100‡"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©­ËÌøÿÿÿÿ8ÕîŒî.
+A
+java:S1659ª"#Declare "Event" on a separate line.(µóÍÙ8ÕîŒî.
+l	java:S116ª"ORename this field "Time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8ÕîŒî.
+Š
+java:S13190"tThe type of the "arrayList" object should be an interface such as "List" rather than the implementation "ArrayList".(ÃŒš
+s	java:S116ª"VRename this field "Description" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8ÕîŒî.
+Q
+java:S1128"5Remove this unused import 'android.app.Notification'.(¸Ó†98¬ÃŒî.
+S
+java:S1128"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8õ˜¤î.
+s	java:S117¶"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(şºıñúÿÿÿÿ8ÕîŒî.
+o	java:S116ª"RRename this field "DateTxt" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8ÕîŒî.
+k	java:S100»"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”Š”„8ÕîŒî.
+s	java:S117ˆ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ÍŠÃüÿÿÿÿ8×©‹™÷.

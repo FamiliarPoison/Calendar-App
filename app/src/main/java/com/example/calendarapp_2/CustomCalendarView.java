@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.Image;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.CalendarContract;
 import android.text.Layout;
 import android.util.AttributeSet;
@@ -31,7 +33,12 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.calendarapp_2.firebase.FirebaseCallback;
+import com.example.calendarapp_2.firebase.FirebaseHelper;
+import com.example.calendarapp_2.firebase.model.EventsModel;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -40,7 +47,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.TimeZone;
+import java.util.UUID;
 
 public class CustomCalendarView extends LinearLayout {
     ImageButton NextButton, PreviousButton;
@@ -63,15 +72,17 @@ public class CustomCalendarView extends LinearLayout {
     List<Events> eventsList = new ArrayList<>();
     int alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinuit;
 
-    DBOpenHelper dbOpenHelper;
     MainActivity mMainActivity;
     boolean isAdmin;
+
+    FirebaseDatabase mRootNode;
+    DatabaseReference mDatabaseReference;
 
     public CustomCalendarView(Context context) {
         super(context);
     }
 
-    private void addEvent(AdapterView<?> parent, int position){
+    private void addEvent(AdapterView<?> parent, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(true);
         final View addView = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_newevent_layout, null);
@@ -119,6 +130,7 @@ public class CustomCalendarView extends LinearLayout {
 
         SetTime.setOnClickListener(listener);
 
+
         final String date = eventDateFormate.format(dates.get(position));
         final String month = monthFormat.format(dates.get(position));
         final String year = yearFormate.format(dates.get(position));
@@ -127,19 +139,41 @@ public class CustomCalendarView extends LinearLayout {
             @Override
             public void onClick(View v) {
 
-                if (alarmMe.isChecked()) {
-                    SaveEvent(EventName.getText().toString(), EventsDescription.getText().toString(), EventsTime.getText().toString(), date, month, year, "off", "on");
-                    SetUpCalendar();
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinuit);
-                    setAlarm(calendar, EventName.getText().toString(), EventsTime.getText().toString(), getRequestCode(date,
-                            EventName.getText().toString(), EventsTime.getText().toString()));
-                    alertDialog.dismiss();
-                } else {
-                    SaveEvent(EventName.getText().toString(), EventsDescription.getText().toString(), EventsTime.getText().toString(), date, month, year, "off", "off");
-                    SetUpCalendar();
-                    alertDialog.dismiss();
+                final String event = EventName.getText().toString();
+                String description = EventsDescription.getText().toString();
+                String time = EventsTime.getText().toString();
 
+
+                if (alarmMe.isChecked()) {
+
+                    mRootNode = FirebaseDatabase.getInstance();
+                    mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
+                    String id = getRandomId();
+                    FirebaseHelper.SaveEvent(mDatabaseReference, id, event, description, time, date, month, year, "off", "on");
+
+                    SetUpCalendar();
+                    final Calendar calendar = Calendar.getInstance();
+                    calendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinuit);
+
+                    getRequestCode(date, EventName.getText().toString(), EventsTime.getText().toString(), new FirebaseCallback() {
+                        @Override
+                        public void onSuccess(Events events) {
+                            int code = Integer.parseInt(events.getID());
+                            setAlarm(calendar, EventName.getText().toString(), EventsTime.getText().toString(), code);
+                            alertDialog.dismiss();
+                        }
+                    });
+
+
+                } else {
+
+                    mRootNode = FirebaseDatabase.getInstance();
+                    mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
+                    String id = getRandomId();
+                    FirebaseHelper.SaveEvent(mDatabaseReference, id, event, description, time, date, month, year, "off", "on");
+
+                    SetUpCalendar();
+                    alertDialog.dismiss();
                 }
 
 
@@ -150,6 +184,13 @@ public class CustomCalendarView extends LinearLayout {
         alertDialog = builder.create();
         alertDialog.show();
     }
+
+    private static String getRandomId(){
+        Random random = new Random();
+        int number = random.nextInt(9999999);
+        return String.format("%06d", number);
+    }
+
     public CustomCalendarView(final Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
@@ -182,7 +223,7 @@ public class CustomCalendarView extends LinearLayout {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(isAdmin){
+                if (isAdmin) {
                     addEvent(parent, position);
                 }
             }
@@ -192,47 +233,28 @@ public class CustomCalendarView extends LinearLayout {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String date = eventDateFormate.format(dates.get(position));
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setCancelable(true);
                 View showView = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_events_layout, null);
                 RecyclerView recyclerView = showView.findViewById(R.id.EventsRV);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(showView.getContext());
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setHasFixedSize(true);
-                EventRecyclerAdapter eventRecyclerAdapter = new EventRecyclerAdapter(showView.getContext(), CollectEventByDate(date));
-                recyclerView.setAdapter(eventRecyclerAdapter);
-                eventRecyclerAdapter.notifyDataSetChanged();
-                eventRecyclerAdapter.mainActivity = mMainActivity;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setCancelable(true);
                 builder.setView(showView);
                 alertDialog = builder.create();
-                alertDialog.show();
-                alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        SetUpCalendar();
-                    }
-                });
 
-
+                CollectEventByDate(date, showView, recyclerView, alertDialog);
                 return true;
             }
         });
 
     }
 
-    private int getRequestCode(String date, String event, String time) {
-        int code = 0;
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
-        Cursor cursor = dbOpenHelper.ReadIDEvents(date, event, time, database);
-        while (cursor.moveToNext()) {
-            code = cursor.getInt(cursor.getColumnIndex(DBStructure.ID));
-        }
-        cursor.close();
-        dbOpenHelper.close();
-
-        return code;
-
+    private void getRequestCode(String date, final String event, String time, FirebaseCallback callback) {
+        mRootNode = FirebaseDatabase.getInstance();
+        mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
+        FirebaseHelper.ReadIDEvents(mDatabaseReference, date, event, time, callback);
     }
 
     private void setAlarm(Calendar calendar, String event, String time, int RequestCOde) {
@@ -243,30 +265,39 @@ public class CustomCalendarView extends LinearLayout {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, RequestCOde, intent, PendingIntent.FLAG_ONE_SHOT);
         AlarmManager alarmManager = (AlarmManager) context.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-
     }
 
-    private ArrayList<Events> CollectEventByDate(String date) {
-        ArrayList<Events> arrayList = new ArrayList<>();
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
-        Cursor cursor = dbOpenHelper.ReadEvents(date, database);
-        while (cursor.moveToNext()) {
-            String event = cursor.getString(cursor.getColumnIndex(DBStructure.EVENT));
-            String time = cursor.getString(cursor.getColumnIndex(DBStructure.TIME));
-            String Date = cursor.getString(cursor.getColumnIndex(DBStructure.DATE));
-            String description = cursor.getString(cursor.getColumnIndex(DBStructure.DESCRIPTION));
-            String month = cursor.getString(cursor.getColumnIndex(DBStructure.MONTH));
-            String Year = cursor.getString(cursor.getColumnIndex(DBStructure.YEAR));
-            Events events = new Events(event, description, time, Date, month, Year);
-            arrayList.add(events);
-
-        }
-        cursor.close();
-        dbOpenHelper.close();
-
-        return arrayList;
+    private void CollectEventByDate(final String date, final View showView, final RecyclerView recyclerView,
+                                    final AlertDialog alertDialog) {
+        final ArrayList<Events> arrayList = new ArrayList<>();
+        mRootNode = FirebaseDatabase.getInstance();
+        mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
+        FirebaseHelper.ReadEvents(mDatabaseReference, date, new FirebaseCallback() {
+            @Override
+            public void onSuccess(Events events) {
+                arrayList.add(events);
+            }
+        }, new FirebaseCallback.FirebaseFinishListener() {
+            @Override
+            public void onFinish() {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        EventRecyclerAdapter eventRecyclerAdapter = new EventRecyclerAdapter(showView.getContext(), arrayList);
+                        recyclerView.setAdapter(eventRecyclerAdapter);
+                        eventRecyclerAdapter.notifyDataSetChanged();
+                        eventRecyclerAdapter.mainActivity = mMainActivity;
+                        alertDialog.show();
+                        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                SetUpCalendar();
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
     public CustomCalendarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, Context context1) {
@@ -276,11 +307,11 @@ public class CustomCalendarView extends LinearLayout {
 
     private void SaveEvent(String event, String description, String time, String date, String month, String year, String progress, String notify) {
 
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
-        dbOpenHelper.SaveEvent(event, description, time, date, month, year, progress, notify, database);
-        dbOpenHelper.close();
-        Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
+//        dbOpenHelper = new DBOpenHelper(context);
+//        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
+//        dbOpenHelper.SaveEvent(event, description, time, date, month, year, progress, notify, database);
+//        dbOpenHelper.close();
+//        Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -303,37 +334,32 @@ public class CustomCalendarView extends LinearLayout {
         monthCalendar.set(Calendar.DAY_OF_MONTH, 1);
         int FirstDayofMonth = monthCalendar.get(Calendar.DAY_OF_WEEK) - 1;
         monthCalendar.add(Calendar.DAY_OF_MONTH, -FirstDayofMonth);
-        CollectEventsPerMonth(monthFormat.format(calendar.getTime()), yearFormate.format(calendar.getTime()));
-
-        while (dates.size() < MAX_CALENDAR_DAYS) {
-            dates.add(monthCalendar.getTime());
-            monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
-
-        }
-
-        myGridAdapter = new MyGridAdapter(context, dates, calendar, eventsList);
-        gridView.setAdapter(myGridAdapter);
+        CollectEventsPerMonth(monthFormat.format(calendar.getTime()), yearFormate.format(calendar.getTime()), monthCalendar);
 
     }
 
-    private void CollectEventsPerMonth(String Month, String year) {
+    private void CollectEventsPerMonth(String Month, String year, final Calendar monthCalendar) {
         eventsList.clear();
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
-        Cursor cursor = dbOpenHelper.ReadEventsperMonth(Month, year, database);
-        while (cursor.moveToNext()) {
-            String event = cursor.getString(cursor.getColumnIndex(DBStructure.EVENT));
-            String time = cursor.getString(cursor.getColumnIndex(DBStructure.TIME));
-            String date = cursor.getString(cursor.getColumnIndex(DBStructure.DATE));
-            String month = cursor.getString(cursor.getColumnIndex(DBStructure.MONTH));
-            String Year = cursor.getString(cursor.getColumnIndex(DBStructure.YEAR));
-            String description = cursor.getString(cursor.getColumnIndex(DBStructure.DESCRIPTION));
-            Events events = new Events(event, description, time, date, month, Year);
-            eventsList.add(events);
+        mRootNode = FirebaseDatabase.getInstance();
+        mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
+        FirebaseHelper.ReadEventsPerMonth(mDatabaseReference, Month, year, new FirebaseCallback() {
+            @Override
+            public void onSuccess(Events events) {
+                eventsList.add(events);
+            }
 
-        }
-        cursor.close();
-        dbOpenHelper.close();
+        }, new FirebaseCallback.FirebaseFinishListener() {
+            @Override
+            public void onFinish() {
+                while (dates.size() < MAX_CALENDAR_DAYS) {
+                    dates.add(monthCalendar.getTime());
+                    monthCalendar.add(Calendar.DAY_OF_MONTH, 1);
+                }
+
+                myGridAdapter = new MyGridAdapter(context, dates, calendar, eventsList);
+                gridView.setAdapter(myGridAdapter);
+            }
+        });
     }
 
 

@@ -1,56 +1,54 @@
 
-E
-java:S1128$"*Remove this unused import 'java.sql.Time'.(Üå»‰şÿÿÿÿ
+Z
+java:S1117›"<Rename "calendar" which hides the field declared at line 61.(£„Ş£8ıï«š÷.
+m	java:S117Ü"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡ƒÌ8ïÎ®š÷.
+X	java:S107Á"<Method has 8 parameters, which is greater than 7 authorized.(İ”|8ïÎ®š÷.
+n
+java:S1128&"QRemove this unused import 'com.example.calendarapp_2.firebase.model.EventsModel'.(íÂ Û8Â¬ààö.
+Y	java:S125Ã"<This block of commented-out lines of code should be removed.(ÅÙÌÖ8ïÎ®š÷.
+m	java:S117\"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡ãÃå8ıï«š÷.
+H
+java:S1659H"&Declare "alarmDay" on a separate line.(ÆËÿşùÿÿÿÿ8ıï«š÷.
 K
-java:S1128"0Remove this unused import 'android.text.Layout'.(ÔŠ²±úÿÿÿÿ
+java:S1659H")Declare "alarmMinuit" on a separate line.(ÆËÿşùÿÿÿÿ8ıï«š÷.
+I
+java:S16596",Declare "PreviousButton" on a separate line.(Õÿ‹8ıï«š÷.
+k	java:S100›"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úÛĞô8ıï«š÷.
+Y
+java:S1128">Remove this unused import 'android.provider.CalendarContract'.(üÿ–Ìúÿÿÿÿ
+K
+java:S1128"0Remove this unused import 'android.text.Layout'.(ÔŠ²±úÿÿÿÿ
+E
+java:S1128+"*Remove this unused import 'java.sql.Time'.(Üå»‰şÿÿÿÿ
+C
+java:S1172Á"&Remove these unused method parameters.(İ”|8ïÎ®š÷.
+m	java:S117Y"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿîäü8ö¸†°ï.
+s	java:S117â"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ×Õıÿÿÿÿ8ïÎ®š÷.
+d
+java:S1128'"BRemove this unused import 'com.google.firebase.auth.FirebaseAuth'.(İÄğöûÿÿÿÿ8ö¸†°ï.
+w	java:S1167"VRename this field "CurrentDate" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´†İÆıÿÿÿÿ8ıï«š÷.
+K
+java:S1144Á".Remove this unused private "SaveEvent" method.(İ”|8ïÎ®š÷.
+r	java:S117Z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”¤Óëøÿÿÿÿ8ö¸†°ï.
+q	java:S1166"URename this field "NextButton" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õÿ‹8ö¸†°ï.
+r	java:S117["QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğµ’¼øÿÿÿÿ8ö¸†°ï.
+j	java:S100Á"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İ”|8ïÎ®š÷.
+r	java:S117e"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿÊ±¿ûÿÿÿÿ8ıï«š÷.
+p	java:S100â"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ×Õıÿÿÿÿ8ıï«š÷.
+u	java:S1166"YRename this field "PreviousButton" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õÿ‹8ıï«š÷.
+Y
+java:S1117j"<Rename "calendar" which hides the field declared at line 61.(£„Ş£8ıï«š÷.
+r	java:S117v"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È¢ªûÿÿÿÿ8ıï«š÷.
+O
+java:S1128"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ8öŸ°†÷.
+I
+java:S1659H"'Declare "alarmHour" on a separate line.(ÆËÿşùÿÿÿÿ8ıï«š÷.
+p	java:S100Ö"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šœÕÿÿÿÿÿ8ïÎ®š÷.
 F
 java:S1128"0Remove this unused import 'android.media.Image'.(ëïøÂ
-O
-java:S1128"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ8¤¼à.
-Y
-java:S1128">Remove this unused import 'android.provider.CalendarContract'.(üÿ–Ìúÿÿÿÿ
-X	java:S107’"<Method has 8 parameters, which is greater than 7 authorized.(İ”|8ö¸†°ï.
-m	java:S117o"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿîäü8ö¸†°ï.
-r	java:S117p"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”¤Óëøÿÿÿÿ8ö¸†°ï.
-r	java:S117q"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğµ’¼øÿÿÿÿ8ö¸†°ï.
-m	java:S117r"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡ãÃå8ö¸†°ï.
-r	java:S117{"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿÊ±¿ûÿÿÿÿ8ö¸†°ï.
-s	java:S117Œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È¢ªûÿÿÿÿ8ö¸†°ï.
-s	java:S117ë"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ’ßÿúÿÿÿÿ8ö¸†°ï.
-s	java:S117ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒ¢µÔûÿÿÿÿ8ö¸†°ï.
-s	java:S117‚"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜¢‹ şÿÿÿÿ8ö¸†°ï.
-m	java:S117®"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡ƒÌ8ö¸†°ï.
-n	java:S117½"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğ¹œö8ö¸†°ï.
-s	java:S117Ç"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜¢‹ şÿÿÿÿ8ö¸†°ï.
-d
-java:S1128""BRemove this unused import 'com.google.firebase.auth.FirebaseAuth'.(İÄğöûÿÿÿÿ8ö¸†°ï.
-I
-java:S1659.",Declare "PreviousButton" on a separate line.(Õÿ‹8ö¸†°ï.
-A
-java:S16592"$Declare "signIn" on a separate line.(ó¯ä‹8ö¸†°ï.
-C
-java:S16593"&Declare "Password" on a separate line.(â„úÛ8ö¸†°ï.
 J
-java:S1659A"(Declare "alarmMonth" on a separate line.(ÆËÿşùÿÿÿÿ8ö¸†°ï.
-H
-java:S1659A"&Declare "alarmDay" on a separate line.(ÆËÿşùÿÿÿÿ8ö¸†°ï.
-I
-java:S1659A"'Declare "alarmHour" on a separate line.(ÆËÿşùÿÿÿÿ8ö¸†°ï.
-K
-java:S1659A")Declare "alarmMinuit" on a separate line.(ÆËÿşùÿÿÿÿ8ö¸†°ï.
-q	java:S116."URename this field "NextButton" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õÿ‹8ö¸†°ï.
-u	java:S116."YRename this field "PreviousButton" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õÿ‹8ö¸†°ï.
-w	java:S116/"VRename this field "CurrentDate" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´†İÆıÿÿÿÿ8ö¸†°ï.
-l	java:S1163"PRename this field "Email" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â„úÛ8ö¸†°ï.
-o	java:S1163"SRename this field "Password" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â„úÛ8ö¸†°ï.
-Z
-java:S1117€"<Rename "calendar" which hides the field declared at line 54.(£„Ş£8ö¸†°ï.
-Z
-java:S1117¦"<Rename "calendar" which hides the field declared at line 54.(£„Ş£8ö¸†°ï.
-k	java:S100÷"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š‘§¤8ö¸†°ï.
+java:S1659H"(Declare "alarmMonth" on a separate line.(ÆËÿşùÿÿÿÿ8ıï«š÷.
 M
-java:S1172"/Remove this unused method parameter "context1".(Ó”ğã8ö¸†°ï.
-j	java:S100’"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İ”|8ö¸†°ï.
-k	java:S100œ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ¡©û8ö¸†°ï.
-p	java:S100¨"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šœÕÿÿÿÿÿ8ö¸†°ï.
-k	java:S100½"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğ¹œö8ö¸†°ï.
+java:S1172¼"/Remove this unused method parameter "context1".(Ó”ğã8ïÎ®š÷.
+s	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ’ßÿúÿÿÿÿ8ıï«š÷.
+k	java:S100Ë"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ¡©û8ïÎ®š÷.

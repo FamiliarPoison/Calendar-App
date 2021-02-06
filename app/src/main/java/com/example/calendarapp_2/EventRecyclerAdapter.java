@@ -2,7 +2,6 @@ package com.example.calendarapp_2;
 
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.RingtoneManager;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +16,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.calendarapp_2.firebase.FirebaseCallback;
+import com.example.calendarapp_2.firebase.FirebaseHelper;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +38,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
     Context context;
     ArrayList<Events> arrayList;
-    DBOpenHelper dbOpenHelper;
     MainActivity mainActivity;
 
     public EventRecyclerAdapter(Context context, ArrayList<Events> arrayList) {
@@ -63,6 +63,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 deleteCalendarEvent(events.getEVENT(), events.getDATE(), events.getTIME());
                 arrayList.remove(position);
                 notifyDataSetChanged();
@@ -70,83 +71,157 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             }
         });
 
-        if (isAarmed(events.getDATE(), events.getEVENT(), events.getTIME())) {
-            holder.setAlarm.setImageResource(R.drawable.ic_action_notification_on);
-        } else {
-            holder.setAlarm.setImageResource(R.drawable.ic_action_notification_off);
-        }
-        if (isAarmed_2(events.getDATE(), events.getEVENT(), events.getTIME())) {
-            holder.setProgress.setImageResource(R.drawable.ic_action_progress_on);
-        } else {
-            holder.setProgress.setImageResource(R.drawable.ic_action_progress_off);
-        }
-        Calendar datecalendar = Calendar.getInstance();
-        datecalendar.setTime(ConvertStringToDate(events.getDATE()));
-        final int alarmYear = datecalendar.get(Calendar.YEAR);
-        final int alarmMonth = datecalendar.get(Calendar.MONTH);
-        final int alarmDay = datecalendar.get(Calendar.DAY_OF_MONTH);
-        Calendar timecalendar = Calendar.getInstance();
-        timecalendar.setTime(ConvertStringToTime(events.getTIME()));
-        final int alarmHour = timecalendar.get(Calendar.HOUR_OF_DAY);
-        final int alarmMinuit = timecalendar.get(Calendar.MINUTE);
+        final String date = events.getDATE();
+        final String event = events.getEVENT();
+        final String time = events.getTIME();
+        final boolean[] alarmed = new boolean[1];
+        final boolean[] progressDone  = new boolean[1];
 
-
-        holder.setAlarm.setOnClickListener(new View.OnClickListener() {
+        isAlarmed(date, event, time, new FirebaseCallback() {
             @Override
-            public void onClick(View v) {
-                if (isAarmed(events.getDATE(), events.getEVENT(), events.getTIME())) {
-                    holder.setAlarm.setImageResource(R.drawable.ic_action_notification_off);
-                    cancelAlarm(getRequestCode(events.getDATE(), events.getEVENT(), events.getTIME()));
-                    updateEvent(events.getDATE(), events.getEVENT(), events.getTIME(), "off");
-                    notifyDataSetChanged();
+            public void onSuccess(final Events events) {
+                String notify = events.getNOTIFY();
+                String progress = events.getPROGRESS();
 
+                if (notify.equals("on")) {
+                    alarmed[0] = true;
                 } else {
+                    alarmed[0] = false;
+                }
+
+                if(progress.equals("on")){
+                    progressDone[0] = true;
+                }else {
+                    progressDone[0] = false;
+                }
+
+                if (alarmed[0]) {
                     holder.setAlarm.setImageResource(R.drawable.ic_action_notification_on);
-                    Calendar alarmCalendar = Calendar.getInstance();
-                    alarmCalendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinuit);
-                    setAlarm(alarmCalendar, events.getEVENT(), events.getTIME(), getRequestCode(events.getDATE(),
-                            events.getEVENT(), events.getTIME()));
-                    updateEvent(events.getDATE(), events.getEVENT(), events.getTIME(), "on");
-                    notifyDataSetChanged();
-
-                }
-            }
-        });
-        holder.setProgress.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                if (isAarmed_2(events.getDATE(), events.getEVENT(), events.getTIME())) {
-                    holder.setProgress.setImageResource(R.drawable.ic_action_progress_off);
-                    updateEvent_2(events.getDATE(), events.getEVENT(), events.getTIME(), "off");
-                    notifyDataSetChanged();
-
                 } else {
-                    holder.setProgress.setImageResource(R.drawable.ic_action_progress_on);
-                    updateEvent_2(events.getDATE(), events.getEVENT(), events.getTIME(), "on");
-                    notifyDataSetChanged();
-
-                    String chanelLabel = "gma7";
-
-                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, chanelLabel)
-                            .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                            .setContentTitle(events.getEVENT()) // title for notification
-                            .setContentText(events.getDESCRIPTION()) // message for notification
-                            .setPriority(NotificationCompat.PRIORITY_HIGH)
-                            .setAutoCancel(true); // clear notification after click
-
-                    Intent intent = new Intent(context, MainActivity.class);
-                    PendingIntent pi = PendingIntent.getActivity
-                            (context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    mBuilder.setContentIntent(pi);
-                    NotificationChannel channel = new NotificationChannel(chanelLabel, "Announcement", NotificationManager.IMPORTANCE_DEFAULT);
-                    NotificationManager mNotificationManager = (NotificationManager)
-                            context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    mNotificationManager.createNotificationChannel(channel);
-                    mNotificationManager.notify(0, mBuilder.build());
+                    holder.setAlarm.setImageResource(R.drawable.ic_action_notification_off);
                 }
 
+                if(progressDone[0]){
+                    holder.setProgress.setImageResource(R.drawable.ic_action_progress_on);
+                }else {
+                    holder.setProgress.setImageResource(R.drawable.ic_action_progress_off);
+                }
 
+                Calendar datecalendar = Calendar.getInstance();
+                datecalendar.setTime(ConvertStringToDate(events.getDATE()));
+                final int alarmYear = datecalendar.get(Calendar.YEAR);
+                final int alarmMonth = datecalendar.get(Calendar.MONTH);
+                final int alarmDay = datecalendar.get(Calendar.DAY_OF_MONTH);
+                Calendar timecalendar = Calendar.getInstance();
+                timecalendar.setTime(ConvertStringToTime(events.getTIME()));
+                final int alarmHour = timecalendar.get(Calendar.HOUR_OF_DAY);
+                final int alarmMinuit = timecalendar.get(Calendar.MINUTE);
+
+                holder.setAlarm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (alarmed[0]) {
+                            holder.setAlarm.setImageResource(R.drawable.ic_action_notification_off);
+
+                            String date = events.getDATE();
+                            String event = events.getEVENT();
+                            String time = events.getTIME();
+
+
+                            getRequestCode(date, event, time, new FirebaseCallback() {
+                                @Override
+                                public void onSuccess(Events events) {
+                                    int code = Integer.parseInt(events.getID());
+                                    cancelAlarm(code);
+
+                                    updateEvent(events.getDATE(), events.getEVENT(), events.getTIME(), "off", new FirebaseFinishListener() {
+                                        @Override
+                                        public void onFinish() {
+                                            notifyDataSetChanged();
+                                        }
+                                    });
+
+                                }
+                            });
+
+                        } else {
+                            holder.setAlarm.setImageResource(R.drawable.ic_action_notification_on);
+
+                            final Calendar alarmCalendar = Calendar.getInstance();
+                            alarmCalendar.set(alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinuit);
+
+                            String date = events.getDATE();
+                            String event = events.getEVENT();
+                            String time = events.getTIME();
+
+
+                            getRequestCode(date, event, time, new FirebaseCallback() {
+                                @Override
+                                public void onSuccess(Events events) {
+                                    int code = Integer.parseInt(events.getID());
+                                    setAlarm(alarmCalendar, events.getEVENT(), events.getTIME(), code);
+                                    updateEvent(events.getDATE(), events.getEVENT(), events.getTIME(), "on", new FirebaseFinishListener() {
+                                        @Override
+                                        public void onFinish() {
+                                            notifyDataSetChanged();
+                                        }
+                                    });
+
+                                }
+                            });
+                        }
+                    }
+                });
+
+                holder.setProgress.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(View v) {
+                        if (progressDone[0]) {
+
+                            String date = events.getDATE();
+                            String event = events.getEVENT();
+                            String time = events.getTIME();
+
+                            holder.setProgress.setImageResource(R.drawable.ic_action_progress_off);
+                            updateEvent_2(date, event, time, "off", new FirebaseFinishListener() {
+                                @Override
+                                public void onFinish() {
+                                    notifyDataSetChanged();
+                                }
+                            });
+
+                        } else {
+                            holder.setProgress.setImageResource(R.drawable.ic_action_progress_on);
+                            updateEvent_2(date, event, time, "on", new FirebaseFinishListener() {
+                                @Override
+                                public void onFinish() {
+                                    notifyDataSetChanged();
+                                    notifyDataSetChanged();
+
+                                    String chanelLabel = "gma7";
+
+                                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, chanelLabel)
+                                            .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                                            .setContentTitle(events.getEVENT()) // title for notification
+                                            .setContentText(events.getDESCRIPTION()) // message for notification
+                                            .setPriority(NotificationCompat.PRIORITY_HIGH)
+                                            .setAutoCancel(true); // clear notification after click
+
+                                    Intent intent = new Intent(context, MainActivity.class);
+                                    PendingIntent pi = PendingIntent.getActivity
+                                            (context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                    mBuilder.setContentIntent(pi);
+                                    NotificationChannel channel = new NotificationChannel(chanelLabel, "Announcement", NotificationManager.IMPORTANCE_DEFAULT);
+                                    NotificationManager mNotificationManager = (NotificationManager)
+                                            context.getSystemService(Context.NOTIFICATION_SERVICE);
+                                    mNotificationManager.createNotificationChannel(channel);
+                                    mNotificationManager.notify(0, mBuilder.build());
+                                }
+                            });
+                        }
+                    }
+                });
             }
         });
 
@@ -199,48 +274,17 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     }
 
     private void deleteCalendarEvent(String event, String date, String time) {
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
-        dbOpenHelper.deleteEvent(event, date, time, database);
-        dbOpenHelper.close();
-
+        FirebaseDatabase mRootNode = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
+        FirebaseHelper.DeleteEvent(mDatabaseReference, date, event, time);
     }
 
-    private boolean isAarmed(String date, String event, String time) {
-        boolean alarmed = false;
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
-        Cursor cursor = dbOpenHelper.ReadIDEvents(date, event, time, database);
-        while (cursor.moveToNext()) {
-            String notify = cursor.getString(cursor.getColumnIndex(DBStructure.Notify));
-            if (notify.equals("on")) {
-                alarmed = true;
-            } else {
-                alarmed = false;
-            }
-        }
-        cursor.close();
-        dbOpenHelper.close();
-        return alarmed;
+    private void isAlarmed(String date, String event, String time, FirebaseCallback callback) {
+        FirebaseDatabase mRootNode = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
+        FirebaseHelper.ReadIDEvents(mDatabaseReference, date, event, time, callback);
     }
 
-    private boolean isAarmed_2(String date, String event, String time) {
-        boolean alarmed_2 = false;
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
-        Cursor cursor = dbOpenHelper.ReadIDEvents_2(date, event, time, database);
-        while (cursor.moveToNext()) {
-            String progress = cursor.getString(cursor.getColumnIndex(DBStructure.Progress));
-            if (progress.equals("on")) {
-                alarmed_2 = true;
-            } else {
-                alarmed_2 = false;
-            }
-        }
-        cursor.close();
-        dbOpenHelper.close();
-        return alarmed_2;
-    }
 
     private void setAlarm(Calendar calendar, String event, String time, int RequestCOde) {
         Intent intent = new Intent(context.getApplicationContext(), AlarmReceiver.class);
@@ -259,32 +303,23 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         alarmManager.cancel(pendingIntent);
     }
 
-    private int getRequestCode(String date, String event, String time) {
-        int code = 0;
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getReadableDatabase();
-        Cursor cursor = dbOpenHelper.ReadIDEvents(date, event, time, database);
-        while (cursor.moveToNext()) {
-            code = cursor.getInt(cursor.getColumnIndex(DBStructure.ID));
-        }
-        cursor.close();
-        dbOpenHelper.close();
-
-        return code;
+    private void getRequestCode(String date, String event, String time, FirebaseCallback callback) {
+        FirebaseDatabase mRootNode = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
+        FirebaseHelper.ReadIDEvents(mDatabaseReference, date, event, time, callback);
     }
 
-    private void updateEvent(String date, String event, String time, String notify) {
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
-        dbOpenHelper.updateEvent(date, event, time, notify, database);
-        dbOpenHelper.close();
+    private void updateEvent(String date, String event, String time, String notify, FirebaseCallback.FirebaseFinishListener listener) {
+
+        FirebaseDatabase mRootNode = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
+        FirebaseHelper.UpdateEvent(mDatabaseReference, date, event, time, notify, listener);
     }
 
-    private void updateEvent_2(String date, String event, String time, String progress) {
-        dbOpenHelper = new DBOpenHelper(context);
-        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
-        dbOpenHelper.updateEvent_2(date, event, time, progress, database);
-        dbOpenHelper.close();
+    private void updateEvent_2(String date, String event, String time, String progress, FirebaseCallback.FirebaseFinishListener listener) {
+        FirebaseDatabase mRootNode = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
+        FirebaseHelper.UpdateEvent2(mDatabaseReference, date, event, time, progress, listener);
     }
 
 

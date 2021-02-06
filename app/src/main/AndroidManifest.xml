@@ -20,7 +20,6 @@
 
         <activity android:name=".MainActivity"/>
 
-
         <receiver android:name=".AlarmReceiver"
             android:exported="true"
             android:enabled="true">

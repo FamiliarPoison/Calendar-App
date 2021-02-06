@@ -1,0 +1,12 @@
+
+j	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õºşÍ8ı««àö.
+j	java:S100T"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÁÍÎ8Ëé½‰÷.
+Y	java:S107"=Method has 10 parameters, which is greater than 7 authorized.(õºşÍ8—×¯àö.
+m	java:S117#"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“•Í™8ÛĞ¹ˆ÷.
+j	java:S1006"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éÒÚÜ8ıæòˆ÷.
+\
+java:S1118":Add a private constructor to hide the implicit public one.(Êñ°’ÿÿÿÿÿ8ÃæÒˆ÷.
+j	java:S100q"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ö’¸ø8ÂŠ•™÷.
+j	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šò‘¨8Ó×ñ‡÷.
+m	java:S117_"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“•Í™8Ëé½‰÷.
+m	java:S117A"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“•Í™8Œæôˆ÷.

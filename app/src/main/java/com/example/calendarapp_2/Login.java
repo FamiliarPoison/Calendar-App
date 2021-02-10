@@ -22,7 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Login extends AppCompatActivity {
 
     FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
     Button signIn;
     EditText Email, Password;
 
@@ -34,10 +33,7 @@ public class Login extends AppCompatActivity {
         Email = findViewById(R.id.email);
         Password = findViewById(R.id.password);
 
-
-
         fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
 
         signIn = findViewById(R.id.login_button);
         signIn.setOnClickListener(new View.OnClickListener() {

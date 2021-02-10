@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.calendarapp_2.firebase.FirebaseHelper;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -21,6 +23,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     boolean isAdmin = false;
+    List<String> usernames = new ArrayList<>();
 
 
     @Override
@@ -52,6 +59,20 @@ public class MainActivity extends AppCompatActivity {
                 isAdmin = documentSnapshot.getBoolean("admin");
                 Log.d("TAG", "onSuccess: " + isAdmin + "");
                 customCalendarView.isAdmin = isAdmin;
+            }
+        });
+
+         FirebaseHelper.ReadUsernames(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                    Log.d("test", snapshot.get("email").toString());
+                    if(snapshot.get("admin").toString().equals("false")){
+                        usernames.add(snapshot.get("email").toString());
+                    }
+                }
+
+                customCalendarView.usernames = usernames;
             }
         });
 

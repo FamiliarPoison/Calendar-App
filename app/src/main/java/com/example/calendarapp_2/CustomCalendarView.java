@@ -19,12 +19,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -70,6 +72,7 @@ public class CustomCalendarView extends LinearLayout {
     AlertDialog alertDialog;
     List<Date> dates = new ArrayList<>();
     List<Events> eventsList = new ArrayList<>();
+    List<String> usernames = new ArrayList<>();
     int alarmYear, alarmMonth, alarmDay, alarmHour, alarmMinuit;
 
     MainActivity mMainActivity;
@@ -89,6 +92,7 @@ public class CustomCalendarView extends LinearLayout {
         final EditText EventName = addView.findViewById(R.id.eventname);
         final TextView EventsTime = addView.findViewById(R.id.eventtime);
         final TextView EventsDescription = addView.findViewById(R.id.event_description);
+        final Spinner EventUsernames = addView.findViewById(R.id.event_emails);
         ImageButton SetTime = addView.findViewById(R.id.seteventtime);
         final CheckBox alarmMe = addView.findViewById(R.id.alarmme);
         Calendar dateCalendar = Calendar.getInstance();
@@ -97,6 +101,7 @@ public class CustomCalendarView extends LinearLayout {
         alarmMonth = dateCalendar.get(Calendar.MONTH);
         alarmDay = dateCalendar.get(Calendar.DAY_OF_MONTH);
 
+        SetupSpinner(EventUsernames);
 
         Button AddEvent = addView.findViewById(R.id.addevent);
 
@@ -130,7 +135,6 @@ public class CustomCalendarView extends LinearLayout {
 
         SetTime.setOnClickListener(listener);
 
-
         final String date = eventDateFormate.format(dates.get(position));
         final String month = monthFormat.format(dates.get(position));
         final String year = yearFormate.format(dates.get(position));
@@ -143,13 +147,13 @@ public class CustomCalendarView extends LinearLayout {
                 String description = EventsDescription.getText().toString();
                 String time = EventsTime.getText().toString();
 
-
                 if (alarmMe.isChecked()) {
 
                     mRootNode = FirebaseDatabase.getInstance();
                     mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
                     String id = getRandomId();
-                    FirebaseHelper.SaveEvent(mDatabaseReference, id, event, description, time, date, month, year, "off", "on");
+                    String assignee = EventUsernames.getSelectedItem().toString();
+                    FirebaseHelper.SaveEvent(mDatabaseReference, id, event, description, time, date, month, year, "off", "on", assignee);
 
                     SetUpCalendar();
                     final Calendar calendar = Calendar.getInstance();
@@ -170,7 +174,8 @@ public class CustomCalendarView extends LinearLayout {
                     mRootNode = FirebaseDatabase.getInstance();
                     mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
                     String id = getRandomId();
-                    FirebaseHelper.SaveEvent(mDatabaseReference, id, event, description, time, date, month, year, "off", "on");
+                    String assignee = EventUsernames.getSelectedItem().toString();
+                    FirebaseHelper.SaveEvent(mDatabaseReference, id, event, description, time, date, month, year, "off", "on", assignee);
 
                     SetUpCalendar();
                     alertDialog.dismiss();
@@ -183,6 +188,13 @@ public class CustomCalendarView extends LinearLayout {
         builder.setView(addView);
         alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void SetupSpinner(Spinner spinner) {
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context,
+                R.layout.spinner_layout, usernames);
+        dataAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+        spinner.setAdapter(dataAdapter);
     }
 
     private static String getRandomId(){

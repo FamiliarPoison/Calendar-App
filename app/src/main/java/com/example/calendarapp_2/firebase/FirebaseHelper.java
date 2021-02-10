@@ -6,10 +6,16 @@ import androidx.annotation.NonNull;
 
 import com.example.calendarapp_2.Events;
 import com.example.calendarapp_2.firebase.model.EventsModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class FirebaseHelper {
 
@@ -17,9 +23,10 @@ public class FirebaseHelper {
 
     public static void SaveEvent(DatabaseReference reference, String id, String event,
                                  String description, String time, String date,
-                                 String month, String year, String progress, String notif) {
-        reference.child(id).setValue(new EventsModel(id, event, description, time, date, month, year, progress, notif));
+                                 String month, String year, String progress, String notif, String assignee) {
+        reference.child(id).setValue(new EventsModel(id, event, description, time, date, month, year, progress, notif, assignee));
     }
+
 
     public static void ReadEventsPerMonth(DatabaseReference reference, final String month, final String year, final FirebaseCallback callback, final FirebaseCallback.FirebaseFinishListener listener) {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -49,6 +56,11 @@ public class FirebaseHelper {
                 Log.d("test", error.getMessage());
             }
         });
+    }
+
+    public static void ReadUsernames(OnSuccessListener<QuerySnapshot> callback) {
+        FirebaseFirestore.getInstance().collection("Users")
+                .get().addOnSuccessListener(callback);
     }
 
     public static void ReadEvents(DatabaseReference reference, final String date, final FirebaseCallback callback, final FirebaseCallback.FirebaseFinishListener listener) {
@@ -132,8 +144,9 @@ public class FirebaseHelper {
             }
         });
     }
+
     public static void UpdateEvent2(final DatabaseReference reference, final String date,
-                                   final String event, final String time, final String newProgress, final FirebaseCallback.FirebaseFinishListener listener) {
+                                    final String event, final String time, final String newProgress, final FirebaseCallback.FirebaseFinishListener listener) {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

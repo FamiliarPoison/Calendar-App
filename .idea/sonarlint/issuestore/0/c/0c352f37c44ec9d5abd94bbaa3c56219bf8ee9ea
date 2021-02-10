@@ -1,60 +1,45 @@
 
-F
-java:S1659"$Declare "NOTIFY" on a separate line.(üıœûÿÿÿÿ8Ÿàà‰÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‰ãûÿÿÿÿÿ8ùÄÔ‰÷.
-k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
-i	java:S116"ORename this field "DATE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
 t	java:S116"SRename this field "PROGRESS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ8‰ô„™÷.
-=
-java:S1659""Declare "DATE" on a separate line.(üıœûÿÿÿÿ
-k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
-n	java:S116"MRename this field "ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ8ÆİÌ‰÷.
-f	java:S117+"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”€½‹
-r	java:S116"QRename this field "NOTIFY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ8Ÿàà‰÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ8¼Éá‰÷.
-p	java:S116"VRename this field "DESCRIPTION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
-r	java:S117k"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜüØ¯ùÿÿÿÿ8øú…™÷.
-k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
-D
-java:S1659")Declare "DESCRIPTION" on a separate line.(üıœûÿÿÿÿ
-j	java:S116"PRename this field "MONTH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
-=
-java:S1659""Declare "YEAR" on a separate line.(üıœûÿÿÿÿ
-k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ8ë“Í‰÷.
-f	java:S117K"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ãî¼ñ
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‰ãûÿÿÿÿÿ8ùÄÔ‰÷.
-f	java:S117S"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÙØı¶
-k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
-b	java:S107"AConstructor has 9 parameters, which is greater than 7 authorized.(Æ•”øÿÿÿÿ8¼Éá‰÷.
-r	java:S117["QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Òİ”çıÿÿÿÿ8ŠêÍ‰÷.
-=
-java:S1659""Declare "TIME" on a separate line.(üıœûÿÿÿÿ
-k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
-j	java:S116"PRename this field "EVENT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‰ãûÿÿÿÿÿ8ùÄÔ‰÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‰ãûÿÿÿÿÿ8ùÄÔ‰÷.
-f	java:S1173"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–ù—
-f	java:S117C"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æğ±Ï
-i	java:S116"ORename this field "YEAR" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ8¡Ö…™÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‰ãûÿÿÿÿÿ8ùÄÔ‰÷.
-f	java:S117;"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øïÄŒ
-H
-java:S1659"&Declare "PROGRESS" on a separate line.(üıœûÿÿÿÿ8‰ô„™÷.
-i	java:S116"ORename this field "TIME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‰ãûÿÿÿÿÿ8ùÄÔ‰÷.
-l	java:S117c"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—ø8øú…™÷.
->
-java:S1659"#Declare "MONTH" on a separate line.(üıœûÿÿÿÿ
 B
 java:S1659" Declare "ID" on a separate line.(üıœûÿÿÿÿ8ÆİÌ‰÷.
-b	java:S107"AConstructor has 8 parameters, which is greater than 7 authorized.(óƒÅÈÿÿÿÿÿ8˜Ô’ª÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óƒÅÈÿÿÿÿÿ8˜Ô’ª÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óƒÅÈÿÿÿÿÿ8˜Ô’ª÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óƒÅÈÿÿÿÿÿ8˜Ô’ª÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óƒÅÈÿÿÿÿÿ8˜Ô’ª÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óƒÅÈÿÿÿÿÿ8˜Ô’ª÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óƒÅÈÿÿÿÿÿ8˜Ô’ª÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óƒÅÈÿÿÿÿÿ8˜Ô’ª÷.
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óƒÅÈÿÿÿÿÿ8˜Ô’ª÷.
+b	java:S107"AConstructor has 9 parameters, which is greater than 7 authorized.(Æ•”øÿÿÿÿ8¼Éá‰÷.
+j	java:S116"PRename this field "MONTH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
+f	java:S117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–ù—
+r	java:S117H"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Òİ”çıÿÿÿÿ8ŠêÍ‰÷.
+f	java:S117@"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÙØı¶
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
+>
+java:S1659"#Declare "MONTH" on a separate line.(üıœûÿÿÿÿ
+f	java:S1178"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ãî¼ñ
+f	java:S117("QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øïÄŒ
+l	java:S117P"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—ø8øú…™÷.
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ8¡Ö…™÷.
+f	java:S1170"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æğ±Ï
+H
+java:S1659"&Declare "PROGRESS" on a separate line.(üıœûÿÿÿÿ8‰ô„™÷.
+r	java:S117X"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜüØ¯ùÿÿÿÿ8øú…™÷.
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
+=
+java:S1659""Declare "DATE" on a separate line.(üıœûÿÿÿÿ
+F
+java:S1659"$Declare "NOTIFY" on a separate line.(üıœûÿÿÿÿ8Ÿàà‰÷.
+i	java:S116"ORename this field "TIME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
+j	java:S116"PRename this field "EVENT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
+=
+java:S1659""Declare "TIME" on a separate line.(üıœûÿÿÿÿ
+i	java:S116"ORename this field "DATE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
+f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”€½‹
+i	java:S116"ORename this field "YEAR" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
+p	java:S116"VRename this field "DESCRIPTION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
+r	java:S116"QRename this field "NOTIFY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ8Ÿàà‰÷.
+n	java:S116"MRename this field "ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üıœûÿÿÿÿ8ÆİÌ‰÷.
+D
+java:S1659")Declare "DESCRIPTION" on a separate line.(üıœûÿÿÿÿ
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ8¼Éá‰÷.
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ•”øÿÿÿÿ8ë“Í‰÷.
+=
+java:S1659""Declare "YEAR" on a separate line.(üıœûÿÿÿÿ

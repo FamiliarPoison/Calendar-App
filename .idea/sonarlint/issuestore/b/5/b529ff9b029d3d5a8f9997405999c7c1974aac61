@@ -1,11 +1,13 @@
 
-J
-java:S1128"4Remove this unused import 'android.content.Context'.(©Ê‰è
-]	java:S110"<This class has 9 parents which is greater than 5 authorized.(§ÿ—Ôüÿÿÿÿ8é¹¤ö.
-e	java:S116"PRename this field "Email" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â„úÛ
 N
 java:S1128"8Remove this unused import 'android.view.LayoutInflater'.(À¯ÑÇ
-c	java:S100E"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áêçú
 <
-java:S1659"&Declare "Password" on a separate line.(â„úÛ
-h	java:S116"SRename this field "Password" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â„úÛ
+java:S1659"&Declare "Password" on a separate line.(â„úÛ
+h	java:S116"SRename this field "Password" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â„úÛ
+i
+java:S1128"LRemove this unused import 'com.google.firebase.firestore.FirebaseFirestore'.(§ä…ª8ü‚ÅÞø.
+e	java:S116"PRename this field "Email" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â„úÛ
+]	java:S110"<This class has 9 parents which is greater than 5 authorized.(§ÿ—Ôüÿÿÿÿ8é¹¤ö.
+J
+java:S1128"4Remove this unused import 'android.content.Context'.(©Ê‰è
+c	java:S100A"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áêçú

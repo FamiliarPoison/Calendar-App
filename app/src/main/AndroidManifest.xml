@@ -18,11 +18,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"/>
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop" />
 
-        <receiver android:name=".AlarmReceiver"
-            android:exported="true"
-            android:enabled="true">
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true">
 
         </receiver>
 

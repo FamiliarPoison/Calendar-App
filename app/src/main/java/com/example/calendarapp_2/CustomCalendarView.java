@@ -77,6 +77,7 @@ public class CustomCalendarView extends LinearLayout {
 
     MainActivity mMainActivity;
     boolean isAdmin;
+    String currentUser;
 
     FirebaseDatabase mRootNode;
     DatabaseReference mDatabaseReference;
@@ -197,7 +198,7 @@ public class CustomCalendarView extends LinearLayout {
         spinner.setAdapter(dataAdapter);
     }
 
-    private static String getRandomId(){
+    private static String getRandomId() {
         Random random = new Random();
         int number = random.nextInt(9999999);
         return String.format("%06d", number);
@@ -229,6 +230,7 @@ public class CustomCalendarView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 mMainActivity.startActivity(new Intent(mMainActivity, Login.class));
+                mMainActivity.finish();
             }
         });
 
@@ -287,7 +289,14 @@ public class CustomCalendarView extends LinearLayout {
         FirebaseHelper.ReadEvents(mDatabaseReference, date, new FirebaseCallback() {
             @Override
             public void onSuccess(Events events) {
-                arrayList.add(events);
+                if(isAdmin){
+                    arrayList.add(events);
+                }else {
+                    if(events.ASSIGNEE.equals(currentUser)){
+                        arrayList.add(events);
+                    }
+                }
+
             }
         }, new FirebaseCallback.FirebaseFinishListener() {
             @Override
@@ -312,20 +321,6 @@ public class CustomCalendarView extends LinearLayout {
         });
     }
 
-    public CustomCalendarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, Context context1) {
-        super(context, attrs, defStyleAttr);
-
-    }
-
-    private void SaveEvent(String event, String description, String time, String date, String month, String year, String progress, String notify) {
-
-//        dbOpenHelper = new DBOpenHelper(context);
-//        SQLiteDatabase database = dbOpenHelper.getWritableDatabase();
-//        dbOpenHelper.SaveEvent(event, description, time, date, month, year, progress, notify, database);
-//        dbOpenHelper.close();
-//        Toast.makeText(context, "Event Saved", Toast.LENGTH_SHORT).show();
-
-    }
 
     private void InitializeLayout() {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -338,7 +333,7 @@ public class CustomCalendarView extends LinearLayout {
     }
 
 
-    private void SetUpCalendar() {
+    public void SetUpCalendar() {
         String currwntDate = dateFormat.format(calendar.getTime());
         CurrentDate.setText(currwntDate);
         dates.clear();
@@ -357,7 +352,14 @@ public class CustomCalendarView extends LinearLayout {
         FirebaseHelper.ReadEventsPerMonth(mDatabaseReference, Month, year, new FirebaseCallback() {
             @Override
             public void onSuccess(Events events) {
-                eventsList.add(events);
+                if (isAdmin) {
+                    eventsList.add(events);
+                } else {
+                    if (events.ASSIGNEE.equals(currentUser)) {
+                        eventsList.add(events);
+                    }
+                }
+
             }
 
         }, new FirebaseCallback.FirebaseFinishListener() {

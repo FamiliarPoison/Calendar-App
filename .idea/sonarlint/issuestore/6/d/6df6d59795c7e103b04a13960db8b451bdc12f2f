@@ -1,11 +1,11 @@
 
-E
-java:S3740"/Provide the parametrized type for this generic.(Ðƒì…
 k	java:S117A"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×¸øéûÿÿÿÿ
 k	java:S117B"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(º’’Çúÿÿÿÿ
-k	java:S117."QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û¯Ûçûÿÿÿÿ
+E
+java:S3740"/Provide the parametrized type for this generic.(Ðƒì…
 H
 java:S1128"-Remove this unused import 'org.w3c.dom.Text'.(¶Äè‹þÿÿÿÿ
+k	java:S117."QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û¯Ûçûÿÿÿÿ
 F
 java:S1874;"0Remove this use of "getColor"; it is deprecated.(Þ„‰¿
 c	java:S100U"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”Š”„

@@ -1,10 +1,10 @@
 package com.example.calendarapp_2;
 
 public class Events {
-    String EVENT, DESCRIPTION, TIME,DATE,MONTH,YEAR, ID, NOTIFY, PROGRESS;
+    String EVENT, DESCRIPTION, TIME,DATE,MONTH,YEAR, ID, NOTIFY, PROGRESS, ASSIGNEE;
 
 
-    public Events(String EVENT, String DESCRIPTION, String TIME, String DATE, String MONTH, String YEAR, String ID, String NOTIFY, String PROGRESS) {
+    public Events(String EVENT, String DESCRIPTION, String TIME, String DATE, String MONTH, String YEAR, String ID, String NOTIFY, String PROGRESS, String ASSIGNEE) {
         this.EVENT = EVENT;
         this.DESCRIPTION = DESCRIPTION;
         this.TIME = TIME;
@@ -14,6 +14,7 @@ public class Events {
         this.ID = ID;
         this.NOTIFY = NOTIFY;
         this.PROGRESS = PROGRESS;
+        this.ASSIGNEE = ASSIGNEE;
     }
 
 

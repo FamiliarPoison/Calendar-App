@@ -11,10 +11,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class FirebaseHelper {
@@ -44,7 +41,8 @@ public class FirebaseHelper {
                         String id = model.getId();
                         String notify = model.getNotif();
                         String progress = model.getProgress();
-                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress);
+                        String assignee = model.getAssignee();
+                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress, assignee);
                         callback.onSuccess(events);
                     }
                 }
@@ -79,7 +77,8 @@ public class FirebaseHelper {
                         String id = model.getId();
                         String notify = model.getNotif();
                         String progress = model.getProgress();
-                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress);
+                        String assignee = model.getAssignee();
+                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress, assignee);
                         callback.onSuccess(events);
                     }
                     listener.onFinish();
@@ -109,7 +108,8 @@ public class FirebaseHelper {
                         String description = model.getDescription();
                         String progress = model.getProgress();
                         String notify = model.getNotif();
-                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress);
+                        String assignee = model.getAssignee();
+                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress, assignee);
                         callback.onSuccess(events);
                     }
                 }

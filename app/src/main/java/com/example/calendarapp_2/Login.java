@@ -46,6 +46,7 @@ public class Login extends AppCompatActivity {
                         Password.getText().clear();
                         String mUID = authResult.getUser().getUid();
                         Intent intent = new Intent(Login.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.putExtra("uid", mUID);
                         startActivity(intent);
                     }

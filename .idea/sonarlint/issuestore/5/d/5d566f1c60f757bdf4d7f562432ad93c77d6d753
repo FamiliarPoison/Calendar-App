@@ -1,27 +1,27 @@
 
-m	java:S116í"PRename this field "Event" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8Äìíª÷.
+s	java:S116í"VRename this field "Description" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8Äìíª÷.
+Š
+java:S1319+"tThe type of the "arrayList" object should be an interface such as "List" rather than the implementation "ArrayList".(ÃŒš
+o	java:S116í"RRename this field "DateTxt" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8Äìíª÷.
+e
+java:S1128"CRemove this unused import 'android.database.sqlite.SQLiteDatabase'.(ãµèÈùÿÿÿÿ8Ïî«÷.
+k	java:S100¿"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åêè8˜‚úª÷.
 o
 java:S37769"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(·œ»Í8Ú‘ç¬÷.
 s	java:S117«"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(şºıñúÿÿÿÿ8Äìíª÷.
-A
-java:S1659í"#Declare "Event" on a separate line.(µóÍÙ8Äìíª÷.
-o	java:S116í"RRename this field "DateTxt" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8Äìíª÷.
+l	java:S116í"ORename this field "Time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8Äìíª÷.
+k	java:S100ş"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”Š”„8Äìíª÷.
 k	java:S100‰"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”³­•8Äìíª÷.
-k	java:S100¿"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åêè8˜‚úª÷.
 G
 java:S1659í")Declare "Description" on a separate line.(µóÍÙ8Äìíª÷.
-@
-java:S1659í""Declare "Time" on a separate line.(µóÍÙ8Äìíª÷.
-Š
-java:S1319+"tThe type of the "arrayList" object should be an interface such as "List" rather than the implementation "ArrayList".(ÃŒš
-s	java:S116í"VRename this field "Description" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8Äìíª÷.
 V
 java:S1128
 "4Remove this unused import 'android.database.Cursor'.(Ôäåúÿÿÿÿ8üíùª÷.
 s	java:S117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ’ßÿúÿÿÿÿ8Äìíª÷.
-l	java:S116í"ORename this field "Time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8Äìíª÷.
-k	java:S100ş"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”Š”„8Äìíª÷.
-e
-java:S1128"CRemove this unused import 'android.database.sqlite.SQLiteDatabase'.(ãµèÈùÿÿÿÿ8Ïî«÷.
 x
 java:S4144²"ZUpdate this method so that its implementation is not identical to "isAlarmed" on line 282.(ô¤Ó8‚—ñû÷.
+A
+java:S1659í"#Declare "Event" on a separate line.(µóÍÙ8Äìíª÷.
+@
+java:S1659í""Declare "Time" on a separate line.(µóÍÙ8Äìíª÷.
+m	java:S116í"PRename this field "Event" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µóÍÙ8Äìíª÷.

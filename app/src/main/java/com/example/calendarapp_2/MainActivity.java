@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     boolean isAdmin = false;
+    String currentUser;
     List<String> usernames = new ArrayList<>();
 
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         customCalendarView = findViewById(R.id.custom_calendar_view);
-
+        customCalendarView.mMainActivity = this;
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -55,10 +56,12 @@ public class MainActivity extends AppCompatActivity {
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
                 isAdmin = documentSnapshot.getBoolean("admin");
-                Log.d("TAG", "onSuccess: " + isAdmin + "");
+                currentUser = documentSnapshot.getString("email");
                 customCalendarView.isAdmin = isAdmin;
+                customCalendarView.currentUser = currentUser;
+                customCalendarView.SetUpCalendar();
+
             }
         });
 

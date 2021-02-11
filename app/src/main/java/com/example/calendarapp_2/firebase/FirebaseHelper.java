@@ -21,7 +21,7 @@ public class FirebaseHelper {
     public static void SaveEvent(DatabaseReference reference, String id, String event,
                                  String description, String time, String date,
                                  String month, String year, String progress, String notif, String assignee) {
-        reference.child(id).setValue(new EventsModel(id, event, description, time, date, month, year, progress, notif, assignee));
+        reference.child(id).setValue(new EventsModel(id, event, description, time, date, month, year, progress, notif, assignee, ""));
     }
 
 
@@ -42,7 +42,8 @@ public class FirebaseHelper {
                         String notify = model.getNotif();
                         String progress = model.getProgress();
                         String assignee = model.getAssignee();
-                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress, assignee);
+                        String feedback = model.getFeedback();
+                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress, assignee, feedback);
                         callback.onSuccess(events);
                     }
                 }
@@ -78,7 +79,8 @@ public class FirebaseHelper {
                         String notify = model.getNotif();
                         String progress = model.getProgress();
                         String assignee = model.getAssignee();
-                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress, assignee);
+                        String feedback = model.getFeedback();
+                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress, assignee, feedback);
                         callback.onSuccess(events);
                     }
                     listener.onFinish();
@@ -109,7 +111,8 @@ public class FirebaseHelper {
                         String progress = model.getProgress();
                         String notify = model.getNotif();
                         String assignee = model.getAssignee();
-                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress, assignee);
+                        String feedback = model.getFeedback();
+                        Events events = new Events(event, description, time, date, month, Year, id, notify, progress, assignee, feedback);
                         callback.onSuccess(events);
                     }
                 }
@@ -154,6 +157,28 @@ public class FirebaseHelper {
                     EventsModel model = dataSnapshot.getValue(EventsModel.class);
                     if (model.getDate().equals(date) && model.getEvent().equals(event) && model.getTime().equals(time)) {
                         reference.child(model.getId()).child("progress").setValue(newProgress);
+                        listener.onFinish();
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("test", error.getMessage());
+            }
+        });
+    }
+
+    public static void UpdateEventSaveFeedback(final DatabaseReference reference, final String date,
+                                               final String event, final String time, final String feedback, final FirebaseCallback.FirebaseFinishListener listener) {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    EventsModel model = dataSnapshot.getValue(EventsModel.class);
+                    if (model.getDate().equals(date) && model.getEvent().equals(event) && model.getTime().equals(time)) {
+                        reference.child(model.getId()).child("feedback").setValue(feedback);
                         listener.onFinish();
                         return;
                     }

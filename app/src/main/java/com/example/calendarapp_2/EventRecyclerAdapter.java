@@ -7,12 +7,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -39,6 +38,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     Context context;
     ArrayList<Events> arrayList;
     MainActivity mainActivity;
+    boolean isAdmin;
 
     public EventRecyclerAdapter(Context context, ArrayList<Events> arrayList) {
         this.context = context;
@@ -48,7 +48,16 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_events_rowlayout, parent, false);
+
+        View view;
+
+        if(isAdmin){
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.show_events_admin_layout, parent, false);
+        }else {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.show_events_member_layout, parent, false);
+        }
 
         return new MyViewHolder(view);
     }
@@ -60,14 +69,31 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         holder.Description.setText(events.getDESCRIPTION());
         holder.DateTxt.setText(events.getDATE());
         holder.Time.setText(events.getTIME());
+
+        if(isAdmin){
+            holder.Feedback.setText(events.getFEEDBACK());
+        }
+
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isAdmin){
+                    deleteCalendarEvent(events.getEVENT(), events.getDATE(), events.getTIME());
+                    arrayList.remove(position);
+                    notifyDataSetChanged();
+                }else {
+                    String event = events.getEVENT();
+                    String date = events.getDATE();
+                    String time = events.getTIME();
 
-                deleteCalendarEvent(events.getEVENT(), events.getDATE(), events.getTIME());
-                arrayList.remove(position);
-                notifyDataSetChanged();
+                    Intent intent = new Intent(mainActivity, Feedback.class);
+                    intent.putExtra("event", event);
+                    intent.putExtra("date", date);
+                    intent.putExtra("time", time);
 
+                    mainActivity.startActivity(intent);
+
+                }
             }
         });
 
@@ -75,7 +101,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         final String event = events.getEVENT();
         final String time = events.getTIME();
         final boolean[] alarmed = new boolean[1];
-        final boolean[] progressDone  = new boolean[1];
+        final boolean[] progressDone = new boolean[1];
 
         isAlarmed(date, event, time, new FirebaseCallback() {
             @Override
@@ -89,9 +115,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                     alarmed[0] = false;
                 }
 
-                if(progress.equals("on")){
+                if (progress.equals("on")) {
                     progressDone[0] = true;
-                }else {
+                } else {
                     progressDone[0] = false;
                 }
 
@@ -101,9 +127,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                     holder.setAlarm.setImageResource(R.drawable.ic_action_notification_off);
                 }
 
-                if(progressDone[0]){
+                if (progressDone[0]) {
                     holder.setProgress.setImageResource(R.drawable.ic_action_progress_on);
-                }else {
+                } else {
                     holder.setProgress.setImageResource(R.drawable.ic_action_progress_off);
                 }
 
@@ -234,7 +260,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView DateTxt, Event, Description, Time;
+        TextView DateTxt, Event, Description, Time, Feedback;
         Button delete;
         ImageButton setAlarm;
         ImageButton setProgress;
@@ -248,6 +274,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             delete = itemView.findViewById(R.id.delete);
             setAlarm = itemView.findViewById(R.id.alarmmeBtn);
             setProgress = itemView.findViewById(R.id.progressBtn);
+            Feedback = itemView.findViewById(R.id.feedback_text);
         }
     }
 
@@ -322,5 +349,9 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         FirebaseHelper.UpdateEvent2(mDatabaseReference, date, event, time, progress, listener);
     }
 
-
+    private void updateEvent_feedback(String date, String event, String time, String feedback, FirebaseCallback.FirebaseFinishListener listener) {
+        FirebaseDatabase mRootNode = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseReference = mRootNode.getReference(FirebaseHelper.EVENTS_REFERENCE);
+        FirebaseHelper.UpdateEventSaveFeedback(mDatabaseReference, date, event, time, feedback, listener);
+    }
 }

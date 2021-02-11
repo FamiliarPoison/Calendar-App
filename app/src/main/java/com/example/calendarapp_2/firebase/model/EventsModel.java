@@ -14,11 +14,12 @@ public class EventsModel {
     private String notif;
     private String id;
     private String assignee;
+    private String feedback;
 
     public EventsModel() {
     }
 
-    public EventsModel( String id, String event, String description, String time, String date, String month, String year, String progress, String notif, String assignee) {
+    public EventsModel( String id, String event, String description, String time, String date, String month, String year, String progress, String notif, String assignee, String feedback) {
         this.id = id;
         this.event = event;
         this.description = description;
@@ -29,6 +30,7 @@ public class EventsModel {
         this.progress = progress;
         this.notif = notif;
         this.assignee = assignee;
+        this.feedback = feedback;
     }
 
     public String getEvent() {
@@ -105,5 +107,9 @@ public class EventsModel {
 
     public void setAssignee(String assignee) {
         this.assignee = assignee;
+    }
+
+    public String getFeedback() {
+        return feedback;
     }
 }

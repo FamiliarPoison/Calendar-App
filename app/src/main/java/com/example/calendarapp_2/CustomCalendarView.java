@@ -289,10 +289,10 @@ public class CustomCalendarView extends LinearLayout {
         FirebaseHelper.ReadEvents(mDatabaseReference, date, new FirebaseCallback() {
             @Override
             public void onSuccess(Events events) {
-                if(isAdmin){
+                if (isAdmin) {
                     arrayList.add(events);
-                }else {
-                    if(events.ASSIGNEE.equals(currentUser)){
+                } else {
+                    if (events.ASSIGNEE.equals(currentUser)) {
                         arrayList.add(events);
                     }
                 }
@@ -305,6 +305,7 @@ public class CustomCalendarView extends LinearLayout {
                     @Override
                     public void run() {
                         EventRecyclerAdapter eventRecyclerAdapter = new EventRecyclerAdapter(showView.getContext(), arrayList);
+                        eventRecyclerAdapter.isAdmin = isAdmin;
                         recyclerView.setAdapter(eventRecyclerAdapter);
                         eventRecyclerAdapter.notifyDataSetChanged();
                         eventRecyclerAdapter.mainActivity = mMainActivity;
